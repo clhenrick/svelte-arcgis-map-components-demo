@@ -8,8 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
-    "format": "yarn exec prettier . --write",
-    "lint": "yarn exec eslint"
+    "format": "yarn exec prettier . --write --ignore-unknown",
+    "lint": "yarn exec eslint",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
@@ -38,5 +39,12 @@
     "@arcgis/core": "^4.33.14",
     "@arcgis/map-components": "^4.33.24",
     "@esri/calcite-components": "^3.3.3"
+  },
+  "lint-staged": {
+    "{*.js,*.ts,*.svelte}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "!(*.js|*.ts|*.svelte)": "prettier --write --ignore-unknown"
   }
 }
