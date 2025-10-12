@@ -1,6 +1,7 @@
 import { mount } from "svelte";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-zoom";
+import "@arcgis/map-components/components/arcgis-search";
 import "./app.css";
 import App from "./App.svelte";
 
