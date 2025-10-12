@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { increment, counter } from "./state.svelte";
+  import { increment, counter } from "./state.svelte";
 </script>
 
 <button onclick={increment}>
