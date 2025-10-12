@@ -67,7 +67,8 @@ layer(components.map-components);
     text-wrap: balance;
   }
 
-  figure {
+  figure,
+  pre {
     margin: 0;
   }
 
