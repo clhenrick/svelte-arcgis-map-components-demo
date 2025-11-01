@@ -1,10 +1,10 @@
 @layer reset, components, overrides;
 
-@import url("https://js.arcgis.com/calcite-components/3.2.1/calcite.css")
+@import url("https://js.arcgis.com/calcite-components/3.3.3/calcite.css")
 layer(components.calcite-components);
-@import url("https://js.arcgis.com/4.33/@arcgis/core/assets/esri/themes/light/main.css")
+@import url("https://js.arcgis.com/4.34/@arcgis/core/assets/esri/themes/light/main.css")
 layer(components.jssdk);
-@import url("https://js.arcgis.com/4.33/map-components/main.css")
+@import url("https://js.arcgis.com/4.34/map-components/main.css")
 layer(components.map-components);
 
 @layer reset {

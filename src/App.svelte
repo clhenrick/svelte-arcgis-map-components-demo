@@ -1,54 +1,47 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import ArcGisMap from "./lib/components/ArcGisMap/ArcGisMap.svelte";
+  import MapWrapper from "./lib/components/MapWrapper/MapWrapper.svelte";
+  import DescriptionList from "./lib/components/DescriptionList/DescriptionList.svelte";
+  import { mapState } from "./lib/state";
 
+  /** ArcGIS Online portal item / web map id */
   const itemId = "02b37471d5d84cacbebcccd785460e94";
 
-  let viewContainer: HTMLArcgisMapElement;
-  let viewReady = $state(false);
+  /** map caption for the <figure> wrapper's <figcaption> */
+  const caption = `This map depicts a heat map of various types of energy sources in the United States such as gas, solar, and wind.`;
 
-  onMount(() => {
-    viewContainer.viewOnReady().then(() => {
-      viewReady = true;
-      // it's now safe to do stuff with the viewContainer and MapView
-    });
+  /** derived / computed svelte state that we pass to the description list */
+  const mapStateReadOut = $derived.by(() => {
+    const o = {
+      "View Ready": mapState.ready,
+      "Map center": mapState.center,
+      "Map zoom": mapState.zoom,
+    };
+    const entries = Object.entries(o);
+    return entries.map(([k, v]) => ({
+      key: k,
+      value: JSON.stringify(v, null, 2),
+    }));
   });
 </script>
 
 <main>
-  <h1>Hello, ArcGIS Map Components</h1>
-  <figure>
-    <arcgis-map bind:this={viewContainer} item-id={itemId}>
-      <arcgis-zoom position="top-left"></arcgis-zoom>
-      <arcgis-search position="top-right"></arcgis-search>
-    </arcgis-map>
-    <figcaption>
-      This map depicts a heat map of various types of energy sources in the
-      United States such as gas, solar, and wind.
-    </figcaption>
-  </figure>
-  <div role="status">Map view ready: {viewReady}</div>
+  <h1>Hello, ArcGIS Map Components + Svelte</h1>
+  <MapWrapper {caption}>
+    <ArcGisMap {itemId} />
+  </MapWrapper>
+  <p>Some arcgis-map properties tracked using Svelte state. Refresh the page and/or move the map to see them update. </p>
+  <DescriptionList items={mapStateReadOut} />
 </main>
 
 <style>
   main {
     min-height: 100vh;
+    max-width: 1280px;
+    margin: 0 auto;
   }
 
   h1 {
     margin-block-end: 1rem;
-  }
-
-  figure {
-    display: flex;
-    flex-direction: column;
-  }
-
-  :global(figure > :first-child) {
-    flex-basis: 500px;
-    flex-grow: 999;
-  }
-
-  :global(figure > :last-child) {
-    flex-grow: 1;
   }
 </style>
