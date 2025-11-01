@@ -1,6 +1,15 @@
-# Svelte + TS + Vite
+# ArcGIS Map Components + Svelte + TS + Vite
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+This template should help get you started developing with [`@arcgis/map-components`](https://developers.arcgis.com/javascript/latest/references/map-components/) Svelte and TypeScript in Vite.
+
+Tip: You can use this project's code as boilerplate for starting a new project using [`degit`](https://www.npmjs.com/package/degit?activeTab=readme):
+
+```bash
+npx degit clhenrick/svelte-arcgis-map-components-demo#main new-project
+cd my-project
+yarn install
+yarn dev
+```
 
 ## Recommended IDE Setup
 
