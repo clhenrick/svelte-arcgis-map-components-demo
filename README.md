@@ -1,6 +1,6 @@
 # ArcGIS Map Components + Svelte + TS + Vite
 
-This template should help get you started developing with [`@arcgis/map-components`](https://developers.arcgis.com/javascript/latest/references/map-components/) Svelte and TypeScript in Vite.
+This template should help get you started developing with [`@arcgis/map-components`](https://developers.arcgis.com/javascript/latest/references/map-components/), Svelte, and TypeScript using Vite as a frontend build tool.
 
 Tip: You can use this project's code as boilerplate for starting a new project using [`degit`](https://www.npmjs.com/package/degit?activeTab=readme):
 
@@ -10,6 +10,22 @@ cd my-project
 yarn install
 yarn dev
 ```
+
+## Environment Variables
+
+> [!WARNING]
+> **DO NOT** store any sensitive API keys that should not be publicly accessible in this repository / version control.  
+> ArcGIS Online API keys for use with the ArcGIS JS SDK can have a referrer set so that they only work with certain URLs to help prevent them from being abused.
+
+To set environment variables that are accessible in the runtime code, add a `.env` file to the root of this repo. Note that this file will be ignored by `git` (version control).
+
+You may copy the sample `.env.sample` file to get started:
+
+```bash
+cp .env.sample .env
+```
+
+Note that any environment variable that is meant to be available at runtime should be prefixed with `VITE_`, e.g. `VITE_MY_ENV_VAR`. This is a security practice to prevent sensitive environment variables from being leaked into the runtime / client side code.
 
 ## Recommended IDE Setup
 
