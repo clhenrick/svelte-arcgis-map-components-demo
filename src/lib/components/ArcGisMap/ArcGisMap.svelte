@@ -2,6 +2,7 @@
   import "@arcgis/map-components/components/arcgis-map";
   import "@arcgis/map-components/components/arcgis-zoom";
   import "@arcgis/map-components/components/arcgis-search";
+  import "@arcgis/map-components/components/arcgis-home";
   import { onMount } from "svelte";
   import { mapState } from "../../state";
   import { isValidNumber } from "../../utils";
@@ -20,7 +21,7 @@
   /** reference to the arcgis-map element */
   let viewContainer: HTMLArcgisMapElement;
 
-  function onarcgisViewChange() {
+  function onArcgisViewChange() {
     if (!viewContainer) return;
     const { longitude, latitude } = viewContainer.center || {};
     if (isValidNumber(longitude) && isValidNumber(latitude)) {
@@ -38,15 +39,16 @@
       mapState.view = viewContainer.view;
     });
 
-    viewContainer.addEventListener("arcgisViewChange", onarcgisViewChange);
+    viewContainer.addEventListener("arcgisViewChange", onArcgisViewChange);
 
     return () => {
-      viewContainer.removeEventListener("arcgisViewChange", onarcgisViewChange);
+      viewContainer.removeEventListener("arcgisViewChange", onArcgisViewChange);
     };
   });
 </script>
 
 <arcgis-map bind:this={viewContainer} item-id={itemId} {center} {zoom}>
   <arcgis-zoom position="top-left"></arcgis-zoom>
+  <arcgis-home position="top-left"></arcgis-home>
   <arcgis-search position="top-right"></arcgis-search>
 </arcgis-map>
