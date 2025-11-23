@@ -1,22 +1,16 @@
-import type MapView from "@arcgis/core/views/MapView"
+import type MapView from "@arcgis/core/views/MapView";
 
-export type MapState = {
+/** class that houses various arcgis-map component state */
+class ArcGisMapState {
   /** reference to the arcgis-map component's MapView */
-  view: MapView | undefined;
-  /** current map center */
-  center: [number, number] | undefined;
-  /** current map zoom level */
-  zoom: number | undefined;
-  /** is the MapView in a "ready" state */
-  ready: boolean;
-}
-
-class MapSvelteState {
   view = $state.raw<MapView>();
+  /** current map center */
   center = $state<[number, number]>();
+  /** current map zoom level */
   zoom = $state<number>();
+  /** is the MapView in a "ready" state */
   ready = $state(false);
 }
 
 /** svelte state that tracks arcgis-map component related properties  */
-export const mapState = new MapSvelteState();
+export const mapState = new ArcGisMapState();
