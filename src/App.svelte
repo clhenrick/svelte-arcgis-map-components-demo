@@ -12,15 +12,14 @@
 
   /** derived / computed svelte state that we pass to the description list */
   const mapStateReadOut = $derived.by(() => {
-    const o = {
-      "View Ready": mapState.ready,
+    const descListData = {
+      "View ready": mapState.ready,
       "Map center": mapState.center,
       "Map zoom": mapState.zoom,
     };
-    const entries = Object.entries(o);
-    return entries.map(([k, v]) => ({
-      key: k,
-      value: JSON.stringify(v, null, 2),
+    return Object.entries(descListData).map(([key, value]) => ({
+      key,
+      value: JSON.stringify(value, null, 2),
     }));
   });
 </script>
