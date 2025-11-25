@@ -78,7 +78,7 @@
 </script>
 
 <arcgis-map bind:this={viewContainer}>
-  <arcgis-zoom position="top-left"></arcgis-zoom>
-  <arcgis-home position="top-left"></arcgis-home>
-  <arcgis-search position="top-right"></arcgis-search>
+  <arcgis-zoom slot="top-left"></arcgis-zoom>
+  <arcgis-home slot="top-left"></arcgis-home>
+  <arcgis-search slot="top-right"></arcgis-search>
 </arcgis-map>
