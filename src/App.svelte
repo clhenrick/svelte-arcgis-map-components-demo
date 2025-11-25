@@ -1,11 +1,15 @@
+<script module>
+  const paramsParsed = parseUrlQueryParams();
+  const config = resolveConfig(paramsParsed);
+</script>
+
 <script lang="ts">
   import ArcGisMap from "./lib/components/ArcGisMap/ArcGisMap.svelte";
   import MapWrapper from "./lib/components/MapWrapper/MapWrapper.svelte";
   import DescriptionList from "./lib/components/DescriptionList/DescriptionList.svelte";
   import { mapState } from "./lib/state";
-
-  /** ArcGIS Online portal item / web map id */
-  const itemId = "02b37471d5d84cacbebcccd785460e94";
+  import { parseUrlQueryParams } from "./lib/utils";
+  import { resolveConfig } from "./lib/config";
 
   /** map caption for the <figure> wrapper's <figcaption> */
   const caption = `This map depicts a heat map of various types of energy sources in the United States such as gas, solar, and wind.`;
@@ -28,8 +32,7 @@
   <h1>Hello, ArcGIS Map Components + Svelte</h1>
   <MapWrapper {caption}>
     <svelte:boundary>
-      <ArcGisMap {itemId} />
-
+      <ArcGisMap {...config} />
       {#snippet failed(error)}
         <p>Something went wrong: {String(error)}</p>
       {/snippet}

@@ -9,7 +9,7 @@
 
   /** props for setting the initial arcgis-map properties from an ArcGIS Online PortalItem id. */
   type PropsPortalItem = {
-    itemId: string;
+    itemid: string;
   };
 
   /** props for setting the initial arcgis-map properties with center, zoom, basemap, etc. */
@@ -25,12 +25,11 @@
   const props: Props = $props();
 
   /** type guard to infer that props are for manual setup */
-  const isManual = (value: Props): value is PropsManual =>
-    "center" in value && "zoom" in value && "basemap" in value;
+  const isManual = (p: Props): p is PropsManual =>
+    "center" in p && "zoom" in p && "basemap" in p;
 
   /** type guard to infer that props are for PortalItem setup */
-  const isPortalItem = (value: Props): value is PropsPortalItem =>
-    "itemId" in value;
+  const isPortalItem = (p: Props): p is PropsPortalItem => "itemid" in p;
 
   /** reference to the arcgis-map element which exposes properties such as view, center, zoom, etc.
    * see: https://developers.arcgis.com/javascript/latest/references/map-components/arcgis-map/
@@ -52,7 +51,7 @@
   onMount(() => {
     // handle setting up the arcgis-map from a PortalItem
     if (isPortalItem(props)) {
-      viewContainer.itemId = props.itemId;
+      viewContainer.itemId = props.itemid;
     }
 
     // handle setting up the arcgis-map manually
