@@ -7,20 +7,37 @@
   import { mapState } from "../../state";
   import { isValidNumber } from "../../utils";
 
-  type Props = {
-    /** map center as longitude, latitude */
-    center?: [number, number];
-    /** map zoom level */
-    zoom?: number;
-    /** AGO item id of a WebMap to load */
-    itemId?: string;
+  /** props for setting the initial arcgis-map properties from an ArcGIS Online PortalItem id. */
+  type PropsPortalItem = {
+    itemId: string;
   };
 
-  const { center, zoom, itemId }: Props = $props();
+  /** props for setting the initial arcgis-map properties with center, zoom, basemap, etc. */
+  type PropsManual = {
+    center: [number, number];
+    zoom: number;
+    basemap: string;
+  };
 
-  /** reference to the arcgis-map element */
+  /** ArcGisMap props are either for a PortalItem or manual setup */
+  type Props = PropsPortalItem | PropsManual;
+
+  const props: Props = $props();
+
+  /** type guard to infer that props are for manual setup */
+  const isManual = (value: Props): value is PropsManual =>
+    "center" in value && "zoom" in value && "basemap" in value;
+
+  /** type guard to infer that props are for PortalItem setup */
+  const isPortalItem = (value: Props): value is PropsPortalItem =>
+    "itemId" in value;
+
+  /** reference to the arcgis-map element which exposes properties such as view, center, zoom, etc.
+   * see: https://developers.arcgis.com/javascript/latest/references/map-components/arcgis-map/
+   */
   let viewContainer: HTMLArcgisMapElement;
 
+  /** event handler for view related changes such as zoom, scale, center, rotation, extent, camera, viewpoint */
   function onArcgisViewChange() {
     if (!viewContainer) return;
     const { longitude, latitude } = viewContainer.center || {};
@@ -33,8 +50,21 @@
   }
 
   onMount(() => {
+    // handle setting up the arcgis-map from a PortalItem
+    if (isPortalItem(props)) {
+      viewContainer.itemId = props.itemId;
+    }
+
+    // handle setting up the arcgis-map manually
+    if (isManual(props)) {
+      const { center, zoom, basemap } = props;
+      viewContainer.center = center;
+      viewContainer.zoom = zoom;
+      viewContainer.basemap = basemap;
+    }
+
     viewContainer.viewOnReady().then(() => {
-      // it's now safe to do stuff with the viewContainer and MapView
+      // it's now safe to do stuff with the viewContainer / MapView
       mapState.ready = true;
       mapState.view = viewContainer.view;
     });
@@ -47,7 +77,7 @@
   });
 </script>
 
-<arcgis-map bind:this={viewContainer} item-id={itemId} {center} {zoom}>
+<arcgis-map bind:this={viewContainer}>
   <arcgis-zoom position="top-left"></arcgis-zoom>
   <arcgis-home position="top-left"></arcgis-home>
   <arcgis-search position="top-right"></arcgis-search>

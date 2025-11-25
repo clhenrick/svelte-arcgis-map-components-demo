@@ -28,9 +28,18 @@
 <main>
   <h1>Hello, ArcGIS Map Components + Svelte</h1>
   <MapWrapper {caption}>
-    <ArcGisMap {itemId} />
+    <svelte:boundary>
+      <ArcGisMap {itemId} />
+
+      {#snippet failed(error)}
+        <p>Something went wrong: {String(error)}</p>
+      {/snippet}
+    </svelte:boundary>
   </MapWrapper>
-  <p>Some arcgis-map properties tracked using Svelte state. Refresh the page and/or move the map to see them update. </p>
+  <p>
+    Some arcgis-map properties tracked using Svelte state. Refresh the page
+    and/or move the map to see them update.
+  </p>
   <DescriptionList items={mapStateReadOut} />
 </main>
 
