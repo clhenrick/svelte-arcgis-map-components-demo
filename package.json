@@ -10,7 +10,9 @@
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
     "format": "yarn exec prettier . --write --ignore-unknown",
     "lint": "yarn exec eslint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy:netlify": "netlify deploy --prod --no-build --dir dist",
+    "deploy": "yarn build && yarn deploy:netlify"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
